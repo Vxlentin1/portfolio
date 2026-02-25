@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentin Moyse | Ingénieur Systèmes & Réseaux</title>
+    <meta name="description" content="Portfolio de Valentin Moyse — Ingénieur Systèmes & Réseaux spécialisé en cybersécurité. Alternance chez Koesio, certifié Cisco CCNA & Fortinet.">
+    <meta name="keywords" content="Valentin Moyse, Ingénieur Systèmes Réseaux, Cybersécurité, CCNA, Portfolio, La Rochelle">
+    <meta name="author" content="Valentin Moyse">
+    <meta property="og:title" content="Valentin Moyse | Ingénieur Systèmes & Réseaux">
+    <meta property="og:description" content="Portfolio de Valentin Moyse — Ingénieur Systèmes & Réseaux spécialisé en cybersécurité.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ===================== NAVIGATION ===================== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <span class="logo-bracket">&lt;</span>VM<span class="logo-bracket">/&gt;</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" class="nav-link">À propos</a></li>
+                <li><a href="#experience" class="nav-link">Expériences</a></li>
+                <li><a href="#education" class="nav-link">Formation</a></li>
+                <li><a href="#skills" class="nav-link">Compétences</a></li>
+                <li><a href="#certifications" class="nav-link">Certifications</a></li>
+                <li><a href="#projects" class="nav-link">Projets</a></li>
+                <li><a href="#contact" class="nav-link nav-link--cta">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="hero">
+        <canvas id="particleCanvas" class="hero-canvas"></canvas>
+        <div class="hero-content">
+            <div class="hero-badge reveal">
+                <span class="badge-dot"></span>
+                Disponible pour de nouvelles opportunités
+            </div>
+            <p class="hero-greeting reveal">Bonjour, je suis</p>
+            <h1 class="hero-name reveal">
+                <span class="gradient-text">Valentin Moyse</span>
+            </h1>
+            <p class="hero-title reveal">Ingénieur Systèmes & Réseaux</p>
+            <p class="hero-subtitle reveal">Spécialisé en <span class="typed-text" id="typedText"></span><span class="cursor">|</span></p>
+            <div class="hero-cta reveal">
+                <a href="#contact" class="btn btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    Me contacter
+                </a>
+                <a href="#about" class="btn btn-secondary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                    Découvrir
+                </a>
+            </div>
+            <div class="hero-socials reveal">
+                <a href="https://www.linkedin.com/in/valentin-moyse/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="mailto:valentin-moyse@outlook.fr" class="social-link" aria-label="Email">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="section-number">01.</span> À propos
+            </h2>
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <p>Passionné d'informatique depuis mon plus jeune âge, j'ai développé un vif intérêt pour tout ce qui touche aux <strong>réseaux</strong>, à la <strong>sécurité</strong>, à l'<strong>IA</strong> et surtout à la <strong>cybersécurité</strong>.</p>
+                    <p>Actuellement en alternance chez <strong>Koesio</strong>, n°1 des services numériques pour les PME et collectivités, je prépare un <strong>Mastère Manager en Infrastructures et Cybersécurité des SI</strong> (Bac+5) au CESI.</p>
+                    <p>Sportif dans l'âme — vélo, course à pied et trail — j'aime les défis et me fixer des objectifs pour les atteindre en développant de nouvelles compétences chaque jour.</p>
+                </div>
+                <div class="about-stats reveal">
+                    <div class="stat-card">
+                        <span class="stat-number" data-count="3">0</span><span class="stat-plus">+</span>
+                        <span class="stat-label">Années d'expérience IT</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" data-count="7">0</span><span class="stat-plus">+</span>
+                        <span class="stat-label">Certifications</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" data-count="66">0</span><span class="stat-plus"></span>
+                        <span class="stat-label">Compétences LinkedIn</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" data-count="3">0</span>
+                        <span class="stat-label">Diplômes obtenus & en cours</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== EXPERIENCE ===================== -->
+    <section class="section section--dark" id="experience">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="section-number">02.</span> Expériences
+            </h2>
+            <div class="timeline">
+                <!-- Experience 1: Koesio -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">
+                        <span class="date-range">Sept. 2025 — Présent</span>
+                        <span class="date-duration">6 mois</span>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="timeline-company-info">
+                                <h3 class="timeline-role">Ingénieur Systèmes & Réseaux</h3>
+                                <span class="timeline-company">Koesio</span>
+                                <span class="timeline-type">Alternance</span>
+                            </div>
+                            <span class="timeline-location">📍 Périgny</span>
+                        </div>
+                        <p class="timeline-desc">N°1 des services numériques des PME et collectivités — mission en cours dans le cadre du Mastère MICSI.</p>
+                        <div class="timeline-tags">
+                            <span class="tag">Infrastructure</span>
+                            <span class="tag">Cybersécurité</span>
+                            <span class="tag">Réseaux</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 2: TDI Services -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">
+                        <span class="date-range">Sept. 2024 — Présent</span>
+                        <span class="date-duration">1 an 6 mois</span>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="timeline-company-info">
+                                <h3 class="timeline-role">Administrateur Systèmes & Réseaux</h3>
+                                <span class="timeline-company">TDI Services</span>
+                                <span class="timeline-type">Alternance</span>
+                            </div>
+                            <span class="timeline-location">📍 Aytré</span>
+                        </div>
+                        <ul class="timeline-list">
+                            <li>Migration & renouvellement d'infrastructure (serveur, switch, NAS, pare-feu, Wi-Fi)</li>
+                            <li>Segmentation des flux par VLAN et sécurisation (IDS/IPS, Geo-IP, App Control)</li>
+                            <li>Configuration de pare-feu (SonicWall, Sophos, Stormshield)</li>
+                            <li>Configuration de switch (Aruba, D-Link) et bornes Wi-Fi (Cambium Networks)</li>
+                            <li>Scripts d'automatisation PowerShell (AD, récupération d'informations)</li>
+                            <li>Gestion et optimisation de GPO (GPOZaurr, CleanUpMonster)</li>
+                            <li>Sécurisation Active Directory (PingCastle & PurpleKnight)</li>
+                            <li>Sécurisation tenant Microsoft (accès conditionnel, MFA)</li>
+                            <li>Veille technologique & POC Docker & Linux</li>
+                            <li>Support client incidents N2 & gestion de projets techniques</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span class="tag">Active Directory</span>
+                            <span class="tag">Hyper-V</span>
+                            <span class="tag">SonicWall</span>
+                            <span class="tag">Sophos</span>
+                            <span class="tag">Stormshield</span>
+                            <span class="tag">PowerShell</span>
+                            <span class="tag">VLAN</span>
+                            <span class="tag">GPO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 3: CGR Cinémas -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">
+                        <span class="date-range">Sept. 2022 — Sept. 2024</span>
+                        <span class="date-duration">2 ans 1 mois</span>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="timeline-company-info">
+                                <h3 class="timeline-role">Technicien Support Informatique</h3>
+                                <span class="timeline-company">CGR Cinémas</span>
+                                <span class="timeline-type">Alternance</span>
+                            </div>
+                            <span class="timeline-location">📍 Périgny</span>
+                        </div>
+                        <ul class="timeline-list">
+                            <li>Ticketing GLPI & support aux utilisateurs internes</li>
+                            <li>Gestion du renouvellement du parc informatique</li>
+                            <li>Tests de nouvelles solutions sur Docker / Linux</li>
+                            <li>Lab Proxmox pour environnements de test</li>
+                            <li>Déploiement de postes de vente (caisse, borne, TPE, imprimante)</li>
+                            <li>Mise en place d'une solution de déploiement (Clonezilla)</li>
+                            <li>Gestion Active Directory & support pare-feu Zyxel</li>
+                            <li>Documentation et guides techniques</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span class="tag">GLPI</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">Linux</span>
+                            <span class="tag">Proxmox</span>
+                            <span class="tag">Clonezilla</span>
+                            <span class="tag">Zyxel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 4: Center Parcs -->
+                <div class="timeline-item timeline-item--minor reveal">
+                    <div class="timeline-dot timeline-dot--minor"></div>
+                    <div class="timeline-date">
+                        <span class="date-range">Juil. — Août 2022</span>
+                        <span class="date-duration">2 mois</span>
+                    </div>
+                    <div class="timeline-card timeline-card--minor">
+                        <div class="timeline-header">
+                            <div class="timeline-company-info">
+                                <h3 class="timeline-role">Animateur Sportif</h3>
+                                <span class="timeline-company">Center Parcs — Le Bois aux Daims</span>
+                                <span class="timeline-type">CDD</span>
+                            </div>
+                        </div>
+                        <p class="timeline-desc">Animation d'activités en plein air : paintball, escalade, accrobranche, paddle, segway…</p>
+                        <div class="timeline-tags">
+                            <span class="tag">Animation</span>
+                            <span class="tag">Sport</span>
+                            <span class="tag">Travail d'équipe</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 5: SARL DE LA ROCHE -->
+                <div class="timeline-item timeline-item--minor reveal">
+                    <div class="timeline-dot timeline-dot--minor"></div>
+                    <div class="timeline-date">
+                        <span class="date-range">Juin — Août 2021</span>
+                        <span class="date-duration">3 mois</span>
+                    </div>
+                    <div class="timeline-card timeline-card--minor">
+                        <div class="timeline-header">
+                            <div class="timeline-company-info">
+                                <h3 class="timeline-role">Ouvrier Agricole</h3>
+                                <span class="timeline-company">SARL De La Roche</span>
+                                <span class="timeline-type">CDD</span>
+                            </div>
+                            <span class="timeline-location">📍 Chalais</span>
+                        </div>
+                        <p class="timeline-desc">Récolte de melons — travail physique en équipe et en extérieur.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== EDUCATION ===================== -->
+    <section class="section" id="education">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="section-number">03.</span> Formation
+            </h2>
+            <div class="education-path">
+                <div class="education-card reveal">
+                    <div class="education-level">
+                        <span class="level-badge level-badge--5">Bac+5</span>
+                    </div>
+                    <div class="education-info">
+                        <h3 class="education-degree">Mastère Manager en Infrastructures et Cybersécurité des SI</h3>
+                        <span class="education-abbr">(MICSI)</span>
+                        <div class="education-school">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                            CESI — Ingénierie informatique
+                        </div>
+                        <span class="education-dates">Oct. 2025 — Oct. 2027</span>
+                        <div class="education-tags">
+                            <span class="tag">Active Directory</span>
+                            <span class="tag">Infrastructure réseau</span>
+                            <span class="tag">Sécurité</span>
+                            <span class="tag">Gestion de projet</span>
+                            <span class="tag">Migration de systèmes</span>
+                        </div>
+                    </div>
+                    <div class="education-status education-status--current">En cours</div>
+                </div>
+
+                <div class="education-connector reveal"></div>
+
+                <div class="education-card reveal">
+                    <div class="education-level">
+                        <span class="level-badge level-badge--3">Bac+3</span>
+                    </div>
+                    <div class="education-info">
+                        <h3 class="education-degree">Bachelor Administrateur Systèmes & Réseaux</h3>
+                        <span class="education-abbr">(ASR)</span>
+                        <div class="education-school">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                            CESI — Informatique
+                        </div>
+                        <span class="education-dates">Sept. 2024 — Sept. 2025</span>
+                        <span class="education-grade">Niveau : A</span>
+                        <div class="education-tags">
+                            <span class="tag">Migration de systèmes</span>
+                            <span class="tag">Préconisation technique</span>
+                            <span class="tag">Déploiement</span>
+                            <span class="tag">Pare-feu</span>
+                            <span class="tag">Sécurisation de flux</span>
+                        </div>
+                    </div>
+                    <div class="education-status education-status--done">✓ Obtenu</div>
+                </div>
+
+                <div class="education-connector reveal"></div>
+
+                <div class="education-card reveal">
+                    <div class="education-level">
+                        <span class="level-badge level-badge--2">Bac+2</span>
+                    </div>
+                    <div class="education-info">
+                        <h3 class="education-degree">Gestionnaire Maintenance et Support Informatique</h3>
+                        <span class="education-abbr">(GMSI)</span>
+                        <div class="education-school">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                            CESI — Informatique
+                        </div>
+                        <span class="education-dates">Sept. 2022 — Sept. 2024</span>
+                        <span class="education-grade">Niveau : A</span>
+                        <div class="education-tags">
+                            <span class="tag">Windows</span>
+                            <span class="tag">Linux</span>
+                            <span class="tag">Matériel informatique</span>
+                            <span class="tag">Réseaux</span>
+                            <span class="tag">Support technique</span>
+                        </div>
+                    </div>
+                    <div class="education-status education-status--done">✓ Obtenu</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SKILLS ===================== -->
+    <section class="section section--dark" id="skills">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="section-number">04.</span> Compétences
+            </h2>
+            <div class="skills-grid">
+                <div class="skill-category reveal">
+                    <div class="skill-category-header">
+                        <div class="skill-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                        </div>
+                        <h3>Réseaux & Infrastructure</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Active Directory</span>
+                        <span class="skill-tag">VLAN</span>
+                        <span class="skill-tag">Routage</span>
+                        <span class="skill-tag">IPv4</span>
+                        <span class="skill-tag">Haute disponibilité</span>
+                        <span class="skill-tag">Infrastructure réseau</span>
+                        <span class="skill-tag">Dépannage réseau</span>
+                        <span class="skill-tag">GPO</span>
+                        <span class="skill-tag">DNS / DHCP</span>
+                        <span class="skill-tag">Hyper-V</span>
+                    </div>
+                </div>
+
+                <div class="skill-category reveal">
+                    <div class="skill-category-header">
+                        <div class="skill-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h3>Sécurité & Cybersécurité</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Sécurisation de flux</span>
+                        <span class="skill-tag">IDS / IPS</span>
+                        <span class="skill-tag">Sécurité réseau</span>
+                        <span class="skill-tag">Cybersécurité</span>
+                        <span class="skill-tag">MFA / Accès conditionnel</span>
+                        <span class="skill-tag">PingCastle</span>
+                        <span class="skill-tag">PurpleKnight</span>
+                        <span class="skill-tag">Reconnaissance</span>
+                        <span class="skill-tag">Énumération</span>
+                    </div>
+                </div>
+
+                <div class="skill-category reveal">
+                    <div class="skill-category-header">
+                        <div class="skill-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+                        </div>
+                        <h3>Pare-feu & Équipements</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">SonicWall</span>
+                        <span class="skill-tag">Sophos</span>
+                        <span class="skill-tag">Stormshield</span>
+                        <span class="skill-tag">Zyxel</span>
+                        <span class="skill-tag">Fortinet</span>
+                        <span class="skill-tag">Aruba</span>
+                        <span class="skill-tag">D-Link</span>
+                        <span class="skill-tag">Cambium Networks</span>
+                        <span class="skill-tag">Cisco IOS</span>
+                    </div>
+                </div>
+
+                <div class="skill-category reveal">
+                    <div class="skill-category-header">
+                        <div class="skill-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        </div>
+                        <h3>Systèmes & Outils</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Windows Server</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">PowerShell</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Proxmox</span>
+                        <span class="skill-tag">GLPI</span>
+                        <span class="skill-tag">Clonezilla</span>
+                        <span class="skill-tag">Terraform</span>
+                        <span class="skill-tag">Vagrant</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CERTIFICATIONS ===================== -->
+    <section class="section" id="certifications">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="section-number">05.</span> Certifications
+            </h2>
+            <div class="certs-grid">
+                <div class="cert-card reveal">
+                    <div class="cert-logo cert-logo--cisco">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3 class="cert-name">CCNA: Switching, Routing, and Wireless Essentials</h3>
+                    <span class="cert-issuer">Cisco Networking Academy</span>
+                    <span class="cert-date">Février 2026</span>
+                    <div class="cert-skills">
+                        <span class="tag">Haute disponibilité</span>
+                        <span class="tag">Cisco IOS</span>
+                        <span class="tag">Cisco Wireless</span>
+                    </div>
+                </div>
+
+                <div class="cert-card reveal">
+                    <div class="cert-logo cert-logo--cisco">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3 class="cert-name">Ethical Hacker</h3>
+                    <span class="cert-issuer">Cisco</span>
+                    <span class="cert-date">Janvier 2026</span>
+                    <div class="cert-skills">
+                        <span class="tag">Sécurité réseau</span>
+                        <span class="tag">Reconnaissance</span>
+                        <span class="tag">Cybersécurité</span>
+                    </div>
+                </div>
+
+                <div class="cert-card reveal">
+                    <div class="cert-logo cert-logo--cisco">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3 class="cert-name">CCNA 1 : Introduction to Networks</h3>
+                    <span class="cert-issuer">Cisco Networking Academy</span>
+                    <span class="cert-date">Juillet 2025</span>
+                </div>
+
+                <div class="cert-card reveal">
+                    <div class="cert-logo cert-logo--cisco">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3 class="cert-name">Network Technician Career Path</h3>
+                    <span class="cert-issuer">Cisco Networking Academy</span>
+                    <span class="cert-date">Janvier 2026</span>
+                    <div class="cert-skills">
+                        <span class="tag">IPv4</span>
+                        <span class="tag">Réseaux</span>
+                        <span class="tag">Dépannage</span>
+                    </div>
+                </div>
+
+                <div class="cert-card reveal">
+                    <div class="cert-logo cert-logo--fortinet">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3 class="cert-name">Fortinet Certified Fundamentals in Cybersecurity</h3>
+                    <span class="cert-issuer">Fortinet</span>
+                    <span class="cert-date">Juillet 2025 — Juillet 2027</span>
+                </div>
+
+                <div class="cert-card reveal">
+                    <div class="cert-logo cert-logo--secuserve">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </div>
+                    <h3 class="cert-name">Certification Technique Secuserve</h3>
+                    <span class="cert-issuer">Secuserve</span>
+                    <span class="cert-date">Décembre 2025</span>
+                    <div class="cert-skills">
+                        <span class="tag">Anti-spam</span>
+                        <span class="tag">Domaine</span>
+                    </div>
+                </div>
+
+                <div class="cert-card reveal">
+                    <div class="cert-logo cert-logo--anssi">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                    </div>
+                    <h3 class="cert-name">MOOC — SecNumAcadémie</h3>
+                    <span class="cert-issuer">ANSSI</span>
+                    <span class="cert-date">Mars 2023</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PROJECTS ===================== -->
+    <section class="section section--dark" id="projects">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="section-number">06.</span> Projets
+            </h2>
+            <div class="projects-grid">
+                <div class="project-card project-card--featured reveal">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-date">Décembre 2025</span>
+                        <h3 class="project-name">RGUI</h3>
+                        <p class="project-desc">Interface graphique simple pour la commande Windows Robocopy, facilitant la configuration et l'exécution de tâches de synchronisation et de sauvegarde de fichiers.</p>
+                        <div class="project-tags">
+                            <span class="tag">Windows PowerShell</span>
+                            <span class="tag">GUI</span>
+                            <span class="tag">Robocopy</span>
+                        </div>
+                        <span class="project-association">Projet réalisé chez Koesio</span>
+                    </div>
+                </div>
+            </div>
+            <div class="projects-cta reveal">
+                <p>D'autres projets à venir…</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="section-number">07.</span> Contact
+            </h2>
+            <div class="contact-content">
+                <div class="contact-text reveal">
+                    <h3>Travaillons ensemble</h3>
+                    <p>Actuellement à l'écoute de nouvelles opportunités en <strong>cybersécurité</strong>, <strong>administration réseau</strong>, et <strong>ingénierie systèmes</strong>. N'hésitez pas à me contacter !</p>
+                </div>
+                <div class="contact-cards reveal">
+                    <a href="mailto:valentin-moyse@outlook.fr" class="contact-card">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </div>
+                        <span class="contact-label">Email</span>
+                        <span class="contact-value">valentin-moyse@outlook.fr</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/valentin-moyse/" target="_blank" rel="noopener" class="contact-card">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </div>
+                        <span class="contact-label">LinkedIn</span>
+                        <span class="contact-value">Valentin Moyse</span>
+                    </a>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <span class="contact-label">Localisation</span>
+                        <span class="contact-value">La Rochelle, France</span>
+                    </div>
+                </div>
+                <div class="contact-positions reveal">
+                    <h4>Postes recherchés :</h4>
+                    <div class="positions-tags">
+                        <span class="position-tag">Administrateur Sécurité</span>
+                        <span class="position-tag">Ingénieur Réseau</span>
+                        <span class="position-tag">Administrateur Réseau</span>
+                        <span class="position-tag">Expert Cybersécurité</span>
+                        <span class="position-tag">Ingénieur Systèmes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <a href="#hero" class="footer-logo">
+                    <span class="logo-bracket">&lt;</span>VM<span class="logo-bracket">/&gt;</span>
+                </a>
+                <p class="footer-text">Conçu & développé par Valentin Moyse — 2025</p>
+                <div class="footer-links">
+                    <a href="https://www.linkedin.com/in/valentin-moyse/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="mailto:valentin-moyse@outlook.fr" aria-label="Email">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="backToTop" aria-label="Retour en haut">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
