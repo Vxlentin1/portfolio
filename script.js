@@ -373,79 +373,103 @@ document.addEventListener('DOMContentLoaded', () => {
         skillObserver.observe(el);
     });
 
-    // ========== TryHackMe Profile ==========
-    const thmCard = document.getElementById('thmCard');
-    if (thmCard) {
-        loadTryHackMeProfile(thmCard);
+    // ========== Cybersécurité — plateformes ==========
+    const cyberPlatforms = document.getElementById('cyberPlatforms');
+    if (cyberPlatforms) {
+        loadCyberPlatforms(cyberPlatforms);
     }
 });
 
-function formatThmPoints(points) {
-    return new Intl.NumberFormat('fr-FR').format(points);
+function formatPlatformNumber(value) {
+    return new Intl.NumberFormat('fr-FR').format(value);
 }
 
-function formatThmDate(isoString) {
-    if (!isoString) return '';
-    return new Intl.DateTimeFormat('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-    }).format(new Date(isoString));
-}
-
-function renderTryHackMeCard(container, data) {
-    const rankLabel = data.rankPercentile
-        ? `Top ${data.rankPercentile}%`
-        : '—';
-    const avatarHtml = data.avatar
-        ? `<img class="thm-avatar" src="${data.avatar}" alt="Avatar TryHackMe ${data.username}" width="88" height="88" loading="lazy">`
-        : `<div class="thm-avatar-fallback" aria-hidden="true">${data.username.charAt(0).toUpperCase()}</div>`;
-    const subscribedBadge = data.subscribed
-        ? '<span class="thm-badge">Abonnement actif</span>'
-        : '';
-
-    container.innerHTML = `
-        <div class="thm-card-inner">
-            <div class="thm-avatar-wrap">${avatarHtml}</div>
-            <div class="thm-info">
-                <h3 class="thm-username"><a href="${data.profileUrl}" target="_blank" rel="noopener">@${data.username}</a></h3>
-                ${subscribedBadge}
-                <div class="thm-stats">
-                    <div class="thm-stat">
-                        <span class="thm-stat-value">${rankLabel}</span>
-                        <span class="thm-stat-label">Classement mondial</span>
-                    </div>
-                    <div class="thm-stat">
-                        <span class="thm-stat-value">${formatThmPoints(data.points)}</span>
-                        <span class="thm-stat-label">Points</span>
-                    </div>
+function renderPlatformStats(stats) {
+    if (!stats.length) return '';
+    return `
+        <div class="platform-stats">
+            ${stats.map(stat => `
+                <div class="platform-stat">
+                    <span class="platform-stat-value">${stat.value}</span>
+                    <span class="platform-stat-label">${stat.label}</span>
                 </div>
-                ${data.updatedAt ? `<span class="thm-updated">Mis à jour le ${formatThmDate(data.updatedAt)}</span>` : ''}
-            </div>
-            <a href="${data.profileUrl}" target="_blank" rel="noopener" class="thm-link">
+            `).join('')}
+        </div>
+    `;
+}
+
+function renderPlatformCard({ brand, modifier, username, profileUrl, avatar, stats }) {
+    const initial = username.charAt(0).toUpperCase();
+    const avatarHtml = avatar
+        ? `<img class="platform-avatar" src="${avatar}" alt="Avatar ${brand} ${username}" width="80" height="80" loading="lazy">`
+        : `<div class="platform-avatar-fallback" aria-hidden="true">${initial}</div>`;
+
+    return `
+        <article class="platform-card platform-card--${modifier}">
+            <span class="platform-brand">${brand}</span>
+            <div class="platform-avatar-wrap">${avatarHtml}</div>
+            <h3 class="platform-username"><a href="${profileUrl}" target="_blank" rel="noopener">@${username}</a></h3>
+            ${renderPlatformStats(stats)}
+            <a href="${profileUrl}" target="_blank" rel="noopener" class="platform-link">
                 Voir le profil
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
-        </div>
+        </article>
     `;
 }
 
-function showThmError(container, message) {
-    container.innerHTML = `
-        <div class="thm-card-inner thm-card--error">
-            <p class="thm-error">${message}</p>
-        </div>
-    `;
+function buildTryHackMeCard(data) {
+    const stats = [];
+    if (data.rankPercentile) {
+        stats.push({ value: `Top ${data.rankPercentile}%`, label: 'Classement mondial' });
+    }
+    if (data.points != null) {
+        stats.push({ value: formatPlatformNumber(data.points), label: 'Points' });
+    }
+    return renderPlatformCard({
+        brand: 'TryHackMe',
+        modifier: 'thm',
+        username: data.username,
+        profileUrl: data.profileUrl,
+        avatar: data.avatar,
+        stats
+    });
 }
 
-async function loadTryHackMeProfile(container) {
+function buildRootMeCard(data) {
+    const stats = [];
+    if (data.rank != null) {
+        stats.push({ value: formatPlatformNumber(data.rank), label: 'Classement' });
+    }
+    if (data.score != null) {
+        stats.push({ value: formatPlatformNumber(data.score), label: 'Score' });
+    }
+    return renderPlatformCard({
+        brand: 'Root Me',
+        modifier: 'rootme',
+        username: data.username,
+        profileUrl: data.profileUrl,
+        avatar: null,
+        stats
+    });
+}
+
+async function loadCyberPlatforms(container) {
     try {
-        const response = await fetch('data/tryhackme.json');
-        if (!response.ok) throw new Error('Fichier introuvable');
-        const data = await response.json();
-        if (!data.username) throw new Error('Données invalides');
-        renderTryHackMeCard(container, data);
+        const [thmRes, rootmeRes] = await Promise.all([
+            fetch('data/tryhackme.json'),
+            fetch('data/rootme.json')
+        ]);
+
+        if (!thmRes.ok || !rootmeRes.ok) throw new Error('Fichiers introuvables');
+
+        const thm = await thmRes.json();
+        const rootme = await rootmeRes.json();
+
+        if (!thm.username || !rootme.username) throw new Error('Données invalides');
+
+        container.innerHTML = buildTryHackMeCard(thm) + buildRootMeCard(rootme);
     } catch {
-        showThmError(container, 'Impossible de charger le profil TryHackMe. Les statistiques seront mises à jour automatiquement.');
+        container.innerHTML = '<p class="cyber-error">Impossible de charger les profils. Réessayez plus tard.</p>';
     }
 }
