@@ -1,0 +1,43 @@
+name: Update TryHackMe stats
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch and write TryHackMe stats
+        run: |
+          mkdir -p data
+          RAW=$(curl -fsSL "https://tryhackme.com/api/discord/user/vxlms3")
+          RAW="$RAW" node <<'NODE'
+          const raw = JSON.parse(process.env.RAW);
+          const rank = raw.userRank;
+          const percentile = typeof rank === 'object' ? rank.approximate : rank;
+          const payload = {
+            username: 'vxlms3',
+            profileUrl: 'https://tryhackme.com/p/vxlms3',
+            points: raw.points ?? 0,
+            rankPercentile: Number(percentile) || null,
+            avatar: raw.avatar || '',
+            subscribed: Boolean(raw.subscribed),
+            updatedAt: new Date().toISOString()
+          };
+          require('fs').writeFileSync('data/tryhackme.json', JSON.stringify(payload, null, 2) + '\n');
+          NODE
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/tryhackme.json
+          git diff --staged --quiet || git commit -m "chore: update TryHackMe stats"
+          git push

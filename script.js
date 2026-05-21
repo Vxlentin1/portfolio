@@ -372,4 +372,80 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.skill-category').forEach(el => {
         skillObserver.observe(el);
     });
+
+    // ========== TryHackMe Profile ==========
+    const thmCard = document.getElementById('thmCard');
+    if (thmCard) {
+        loadTryHackMeProfile(thmCard);
+    }
 });
+
+function formatThmPoints(points) {
+    return new Intl.NumberFormat('fr-FR').format(points);
+}
+
+function formatThmDate(isoString) {
+    if (!isoString) return '';
+    return new Intl.DateTimeFormat('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    }).format(new Date(isoString));
+}
+
+function renderTryHackMeCard(container, data) {
+    const rankLabel = data.rankPercentile
+        ? `Top ${data.rankPercentile}%`
+        : '—';
+    const avatarHtml = data.avatar
+        ? `<img class="thm-avatar" src="${data.avatar}" alt="Avatar TryHackMe ${data.username}" width="88" height="88" loading="lazy">`
+        : `<div class="thm-avatar-fallback" aria-hidden="true">${data.username.charAt(0).toUpperCase()}</div>`;
+    const subscribedBadge = data.subscribed
+        ? '<span class="thm-badge">Abonnement actif</span>'
+        : '';
+
+    container.innerHTML = `
+        <div class="thm-card-inner">
+            <div class="thm-avatar-wrap">${avatarHtml}</div>
+            <div class="thm-info">
+                <h3 class="thm-username"><a href="${data.profileUrl}" target="_blank" rel="noopener">@${data.username}</a></h3>
+                ${subscribedBadge}
+                <div class="thm-stats">
+                    <div class="thm-stat">
+                        <span class="thm-stat-value">${rankLabel}</span>
+                        <span class="thm-stat-label">Classement mondial</span>
+                    </div>
+                    <div class="thm-stat">
+                        <span class="thm-stat-value">${formatThmPoints(data.points)}</span>
+                        <span class="thm-stat-label">Points</span>
+                    </div>
+                </div>
+                ${data.updatedAt ? `<span class="thm-updated">Mis à jour le ${formatThmDate(data.updatedAt)}</span>` : ''}
+            </div>
+            <a href="${data.profileUrl}" target="_blank" rel="noopener" class="thm-link">
+                Voir le profil
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+        </div>
+    `;
+}
+
+function showThmError(container, message) {
+    container.innerHTML = `
+        <div class="thm-card-inner thm-card--error">
+            <p class="thm-error">${message}</p>
+        </div>
+    `;
+}
+
+async function loadTryHackMeProfile(container) {
+    try {
+        const response = await fetch('data/tryhackme.json');
+        if (!response.ok) throw new Error('Fichier introuvable');
+        const data = await response.json();
+        if (!data.username) throw new Error('Données invalides');
+        renderTryHackMeCard(container, data);
+    } catch {
+        showThmError(container, 'Impossible de charger le profil TryHackMe. Les statistiques seront mises à jour automatiquement.');
+    }
+}
