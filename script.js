@@ -449,7 +449,7 @@ function buildRootMeCard(data) {
         modifier: 'rootme',
         username: data.username,
         profileUrl: data.profileUrl,
-        avatar: null,
+        avatar: data.avatar,
         stats
     });
 }
@@ -467,6 +467,10 @@ async function loadCyberPlatforms(container) {
         const rootme = await rootmeRes.json();
 
         if (!thm.username || !rootme.username) throw new Error('Données invalides');
+
+        if (!rootme.avatar && thm.avatar) {
+            rootme.avatar = thm.avatar;
+        }
 
         container.innerHTML = buildTryHackMeCard(thm) + buildRootMeCard(rootme);
     } catch {
