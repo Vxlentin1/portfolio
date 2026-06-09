@@ -14,25 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Fetch and write TryHackMe stats
-        run: |
-          mkdir -p data
-          RAW=$(curl -fsSL "https://tryhackme.com/api/discord/user/vxlms3")
-          RAW="$RAW" node <<'NODE'
-          const raw = JSON.parse(process.env.RAW);
-          const rank = raw.userRank;
-          const percentile = typeof rank === 'object' ? rank.approximate : rank;
-          const payload = {
-            username: 'vxlms3',
-            profileUrl: 'https://tryhackme.com/p/vxlms3',
-            points: raw.points ?? 0,
-            rankPercentile: Number(percentile) || null,
-            avatar: raw.avatar || '',
-            subscribed: Boolean(raw.subscribed),
-            updatedAt: new Date().toISOString()
-          };
-          require('fs').writeFileSync('data/tryhackme.json', JSON.stringify(payload, null, 2) + '\n');
-          NODE
+        env:
+          THM_USERNAME: vxlms3
+        run: node .github/scripts/update-tryhackme.mjs
 
       - name: Commit changes
         run: |

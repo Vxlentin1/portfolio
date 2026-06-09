@@ -2013,3 +2013,72 @@ h1, h2, h3, h4 {
     display: block;
     opacity: 1;
 }
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Skip link — visible only when focused via keyboard */
+.skip-link {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 2000;
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    background: var(--accent-primary);
+    color: white;
+    font-weight: 600;
+    transform: translateY(-150%);
+    transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+/* Clear keyboard focus ring (without affecting mouse users) */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.nav-link:focus-visible,
+.social-link:focus-visible,
+.contact-card:focus-visible,
+.project-link:focus-visible,
+.platform-link:focus-visible {
+    outline: 2px solid var(--accent-secondary);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
+
+/* Respect users who prefer reduced motion: stop animations,
+   reveal everything immediately, keep the site fully usable. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .hero-canvas {
+        display: none;
+    }
+
+    .scroll-indicator,
+    .badge-dot,
+    .cursor {
+        animation: none !important;
+    }
+}

@@ -5,9 +5,11 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // ========== Particle Canvas ==========
     const canvas = document.getElementById('particleCanvas');
-    if (canvas) {
+    if (canvas && !prefersReducedMotion) {
         const ctx = canvas.getContext('2d');
         let particles = [];
         let animationId;
@@ -103,6 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        let isRunning = false;
+
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => {
@@ -113,8 +117,38 @@ document.addEventListener('DOMContentLoaded', () => {
             animationId = requestAnimationFrame(animateParticles);
         }
 
+        function startAnimation() {
+            if (!isRunning) {
+                isRunning = true;
+                animateParticles();
+            }
+        }
+
+        function stopAnimation() {
+            isRunning = false;
+            cancelAnimationFrame(animationId);
+        }
+
         initParticles();
-        animateParticles();
+        startAnimation();
+
+        // Pause the loop when the hero is scrolled out of view (saves CPU/battery)
+        const hero = document.getElementById('hero');
+        if (hero && 'IntersectionObserver' in window) {
+            const heroObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) startAnimation();
+                    else stopAnimation();
+                });
+            }, { threshold: 0 });
+            heroObserver.observe(hero);
+        }
+
+        // Pause when the browser tab is hidden
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) stopAnimation();
+            else startAnimation();
+        });
 
         // Reinit on resize
         let resizeTimer;
@@ -129,15 +163,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== Typing Effect ==========
     const typedElement = document.getElementById('typedText');
-    if (typedElement) {
-        const words = [
-            'Cybersécurité',
-            'Infrastructure réseau',
-            'Active Directory',
-            'Administration systèmes',
-            'Sécurisation des SI',
-            'Cloud & DevOps'
-        ];
+    const typedWords = [
+        'Cybersécurité',
+        'Infrastructure réseau',
+        'Active Directory',
+        'Administration systèmes',
+        'Sécurisation des SI',
+        'Cloud & DevOps'
+    ];
+    if (typedElement && prefersReducedMotion) {
+        // Show a static label instead of animating
+        typedElement.textContent = typedWords[0];
+    } else if (typedElement) {
+        const words = typedWords;
         let wordIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -223,13 +261,16 @@ document.addEventListener('DOMContentLoaded', () => {
             overlay.classList.toggle('active');
 
             // Toggle body scroll
-            document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+            const isOpen = navLinks.classList.contains('open');
+            navToggle.setAttribute('aria-expanded', String(isOpen));
+            document.body.style.overflow = isOpen ? 'hidden' : '';
         });
     }
 
     function closeNav() {
         navToggle.classList.remove('active');
         navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
         const overlay = document.querySelector('.nav-overlay');
         if (overlay) overlay.classList.remove('active');
         document.body.style.overflow = '';
@@ -297,6 +338,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function animateCounter(element, target) {
+        if (prefersReducedMotion) {
+            element.textContent = target;
+            return;
+        }
         let current = 0;
         const increment = target / 40;
         const duration = 1500;
@@ -325,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 window.scrollTo({
                     top: targetPosition,
-                    behavior: 'smooth'
+                    behavior: prefersReducedMotion ? 'auto' : 'smooth'
                 });
             }
         });
@@ -344,6 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ========== Stagger for skill tags ==========
+    if (!prefersReducedMotion) {
     document.querySelectorAll('.skill-category').forEach(category => {
         const tags = category.querySelectorAll('.skill-tag');
         tags.forEach((tag, index) => {
@@ -372,6 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.skill-category').forEach(el => {
         skillObserver.observe(el);
     });
+    }
 
     // ========== Cybersécurité — plateformes ==========
     const cyberPlatforms = document.getElementById('cyberPlatforms');
