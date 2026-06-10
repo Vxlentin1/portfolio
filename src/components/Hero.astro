@@ -206,27 +206,38 @@ import { site, roles } from '../data/content';
   // ---------- Rotating role descriptor ----------
   const typed = document.getElementById('heroTyped');
   if (typed && !prefersReduced) {
+    const TYPE = 80, ERASE = 45, HOLD = 1500, GAP = 350;
     let wordIndex = 0;
+    // Start by erasing the word already printed in the markup (roles[0]).
     let charIndex = roles[0].length;
-    let deleting = false;
+    let deleting = true;
 
     const tick = () => {
       const word = roles[wordIndex];
-      charIndex += deleting ? -1 : 1;
-      typed.textContent = word.slice(0, charIndex);
 
-      let delay = deleting ? 36 : 70;
-      if (!deleting && charIndex === word.length) {
-        delay = 1900;
-        deleting = true;
-      } else if (deleting && charIndex === 0) {
-        deleting = false;
-        wordIndex = (wordIndex + 1) % roles.length;
-        delay = 320;
+      if (deleting) {
+        charIndex--;
+        typed.textContent = word.slice(0, charIndex);
+        if (charIndex <= 0) {
+          deleting = false;
+          wordIndex = (wordIndex + 1) % roles.length;
+          setTimeout(tick, GAP);
+          return;
+        }
+        setTimeout(tick, ERASE);
+      } else {
+        charIndex++;
+        typed.textContent = word.slice(0, charIndex);
+        if (charIndex >= word.length) {
+          deleting = true;
+          setTimeout(tick, HOLD);
+          return;
+        }
+        setTimeout(tick, TYPE);
       }
-      setTimeout(tick, delay);
     };
-    setTimeout(tick, 2000);
+
+    setTimeout(tick, HOLD);
   }
 
   // ---------- Network graph ----------

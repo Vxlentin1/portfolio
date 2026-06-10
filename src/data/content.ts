@@ -26,14 +26,14 @@ export const nav = [
   { id: 'contact', label: 'Contact', n: '08' },
 ];
 
-// Rotating role descriptors shown in the hero
+// Rotating one-word descriptors shown in the hero (erase + retype effect)
 export const roles = [
-  'Cybersécurité',
-  'Infrastructure réseau',
-  'Active Directory',
-  'Administration systèmes',
-  'Sécurisation des SI',
-  'Cloud & DevOps',
+  'Infra',
+  'Systèmes',
+  'Réseaux',
+  'Sécurité',
+  'Pare-feu',
+  'Audit',
 ];
 
 export const about = {
