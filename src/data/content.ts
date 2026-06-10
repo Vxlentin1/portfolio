@@ -32,7 +32,6 @@ export const roles = [
   'Systèmes',
   'Réseaux',
   'Sécurité',
-  'Pare-feu',
   'Audit',
 ];
 
