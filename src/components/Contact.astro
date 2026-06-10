@@ -1,0 +1,84 @@
+---
+import SectionHead from './SectionHead.astro';
+import { site } from '../data/content';
+
+const endpoints = [
+  { label: 'email', value: site.email, href: `mailto:${site.email}` },
+  { label: 'linkedin', value: 'in/valentin-moyse', href: site.linkedin },
+  { label: 'localisation', value: site.location, href: null },
+];
+---
+
+<section class="section" id="contact">
+  <div class="wrap">
+    <SectionHead n="08" label="Contact" title="Me contacter" />
+
+    <div class="contact">
+      <div class="contact__intro reveal">
+        <p class="contact__lead">
+          À l'écoute d'opportunités en <strong>cybersécurité</strong>, <strong>administration réseau</strong>
+          et <strong>ingénierie systèmes</strong>.
+        </p>
+      </div>
+
+      <div class="contact__endpoints reveal">
+        {endpoints.map((e) => {
+          const Tag = e.href ? 'a' : 'div';
+          return (
+            <Tag
+              class="panel endpoint"
+              {...(e.href ? { href: e.href, target: e.href.startsWith('http') ? '_blank' : undefined, rel: 'noopener' } : {})}
+            >
+              <span class="endpoint__label mono">{e.label}</span>
+              <span class="endpoint__value mono">{e.value}</span>
+              {e.href && <span class="endpoint__arrow mono" aria-hidden="true">↗</span>}
+            </Tag>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(28px, 5vw, 56px);
+    align-items: start;
+  }
+
+  .contact__lead {
+    font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: 30px;
+    font-weight: 300;
+  }
+  .contact__lead strong { color: var(--accent-bright); font-weight: 600; }
+
+  .contact__endpoints { display: flex; flex-direction: column; gap: 12px; }
+
+  .endpoint {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+  }
+
+  .endpoint__label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    width: 96px;
+    flex-shrink: 0;
+  }
+  .endpoint__value { font-size: 0.92rem; color: var(--ink); flex: 1; word-break: break-word; }
+  .endpoint__arrow { color: var(--ink-faint); transition: color 0.3s var(--ease), transform 0.3s var(--ease); }
+  a.endpoint:hover .endpoint__arrow { color: var(--accent); transform: translate(2px, -2px); }
+
+  @media (max-width: 760px) {
+    .contact { grid-template-columns: 1fr; }
+  }
+</style>

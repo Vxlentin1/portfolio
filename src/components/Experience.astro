@@ -1,0 +1,167 @@
+---
+import SectionHead from './SectionHead.astro';
+import { experiences } from '../data/content';
+---
+
+<section class="section" id="experience">
+  <div class="wrap">
+    <SectionHead n="02" label="Expériences" title="Parcours professionnel" />
+
+    <div class="timeline">
+      {experiences.map((exp, i) => (
+        <article class={`tl reveal${exp.minor ? ' tl--minor' : ''}`}>
+          <div class="tl__node" aria-hidden="true"></div>
+
+          <div class="tl__meta mono">
+            <span class="tl__range">{exp.dateRange}</span>
+            <span class="tl__dur">{exp.duration}</span>
+          </div>
+
+          <div class="panel tl__card">
+            <header class="tl__head">
+              <div>
+                <h3 class="tl__role">{exp.role}</h3>
+                <span class="tl__company">{exp.company}</span>
+              </div>
+              <div class="tl__chips">
+                <span class="tl__type mono">{exp.type}</span>
+                {exp.location && <span class="tl__loc mono">⌖ {exp.location}</span>}
+              </div>
+            </header>
+
+            {exp.desc && <p class="tl__desc">{exp.desc}</p>}
+
+            {exp.bullets && (
+              <ul class="tl__list">
+                {exp.bullets.map((b) => <li>{b}</li>)}
+              </ul>
+            )}
+
+            <div class="tl__tags">
+              {exp.tags.map((t) => <span class="tag">{t}</span>)}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    position: relative;
+    padding-left: 34px;
+  }
+
+  /* the vertical "bus" line */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent-line), var(--line) 60%, transparent);
+  }
+
+  .tl {
+    position: relative;
+    margin-bottom: 36px;
+  }
+
+  .tl:last-child { margin-bottom: 0; }
+
+  .tl__node {
+    position: absolute;
+    left: -34px;
+    top: 4px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 0 3px var(--bg), 0 0 14px rgba(94, 168, 255, 0.4);
+  }
+
+  .tl__node::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .tl--minor .tl__node {
+    border-color: var(--ink-faint);
+    box-shadow: 0 0 0 3px var(--bg);
+  }
+  .tl--minor .tl__node::after { background: var(--ink-faint); }
+
+  .tl__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 0.74rem;
+  }
+
+  .tl__range { color: var(--accent); }
+  .tl__dur {
+    color: var(--ink-faint);
+    padding: 2px 8px;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+  }
+
+  .tl__card { padding: 24px; }
+  .tl--minor .tl__card { padding: 18px; }
+
+  .tl__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .tl__role { font-size: 1.16rem; font-weight: 600; margin-bottom: 3px; }
+  .tl__company { font-size: 0.92rem; color: var(--accent); font-family: var(--font-mono); }
+
+  .tl__chips { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+  .tl__type {
+    font-size: 0.68rem;
+    color: var(--ink-dim);
+    padding: 2px 9px;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+  }
+  .tl__loc { font-size: 0.72rem; color: var(--ink-faint); white-space: nowrap; }
+
+  .tl__desc { color: var(--ink-dim); font-size: 0.92rem; margin-bottom: 14px; }
+
+  .tl__list { margin-bottom: 14px; }
+  .tl__list li {
+    position: relative;
+    padding-left: 18px;
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    line-height: 1.6;
+  }
+  .tl__list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    opacity: 0.7;
+  }
+
+  .tl__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  @media (max-width: 560px) {
+    .tl__head { flex-direction: column; }
+    .tl__chips { align-items: flex-start; flex-direction: row; }
+  }
+</style>

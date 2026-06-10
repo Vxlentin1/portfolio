@@ -1,0 +1,102 @@
+---
+import SectionHead from './SectionHead.astro';
+import { about } from '../data/content';
+---
+
+<section class="section" id="about">
+  <div class="wrap">
+    <SectionHead n="01" label="À propos" title="Profil système" />
+
+    <div class="about">
+      <div class="about__text reveal">
+        {about.paragraphs.map((p) => <p set:html={p} />)}
+      </div>
+
+      <div class="about__stats reveal">
+        {about.stats.map((s) => (
+          <div class="panel stat">
+            <span class="stat__value mono" data-count={s.value} data-suffix={s.suffix}>0{s.suffix}</span>
+            <span class="stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: clamp(28px, 5vw, 60px);
+    align-items: start;
+  }
+
+  .about__text p {
+    color: var(--ink-dim);
+    margin-bottom: 18px;
+    font-size: 1.02rem;
+    line-height: 1.8;
+  }
+
+  .about__text p:last-child { margin-bottom: 0; }
+
+  .about__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .stat {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .stat__value {
+    font-size: 2.1rem;
+    font-weight: 600;
+    color: var(--accent-bright);
+    line-height: 1;
+  }
+
+  .stat__label {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 860px) {
+    .about { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const counters = document.querySelectorAll<HTMLElement>('.stat__value');
+
+  const run = (el: HTMLElement) => {
+    const target = Number(el.dataset.count || 0);
+    const suffix = el.dataset.suffix || '';
+    if (prefersReduced) { el.textContent = `${target}${suffix}`; return; }
+    let cur = 0;
+    const step = Math.max(1, Math.round(target / 36));
+    const timer = setInterval(() => {
+      cur += step;
+      if (cur >= target) { cur = target; clearInterval(timer); }
+      el.textContent = `${cur}${suffix}`;
+    }, 34);
+  };
+
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { run(e.target as HTMLElement); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach((c) => obs.observe(c));
+  } else {
+    counters.forEach(run);
+  }
+</script>

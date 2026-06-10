@@ -1,0 +1,60 @@
+---
+import { site } from '../data/content';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <a href="#hero" class="footer__logo mono">
+      <span class="footer__bracket">&lt;</span>VM<span class="footer__bracket">/&gt;</span>
+    </a>
+
+    <p class="footer__meta mono">
+      conçu &amp; développé par {site.name} — {year}
+      <span class="footer__build">build: astro · {site.coords}</span>
+    </p>
+
+    <div class="footer__links mono">
+      <a href={site.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+      <a href={site.github} target="_blank" rel="noopener">GitHub</a>
+      <a href={`mailto:${site.email}`}>Email</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    background: var(--bg-elev);
+    padding-block: 32px;
+  }
+
+  .footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer__logo { font-weight: 700; font-size: 1.1rem; color: var(--ink); }
+  .footer__bracket { color: var(--accent); }
+
+  .footer__meta {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .footer__build { color: var(--ink-faint); opacity: 0.6; font-size: 0.66rem; }
+
+  .footer__links { display: flex; gap: 16px; font-size: 0.78rem; }
+  .footer__links a { color: var(--ink-dim); transition: color 0.3s var(--ease); }
+  .footer__links a:hover { color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .footer__inner { flex-direction: column; text-align: center; }
+  }
+</style>

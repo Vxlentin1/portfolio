@@ -1,0 +1,357 @@
+---
+import { site, roles } from '../data/content';
+---
+
+<section class="hero" id="hero">
+  <canvas class="hero__graph" id="heroGraph" aria-hidden="true"></canvas>
+
+  <!-- Blueprint corner annotations -->
+  <span class="hero__coord hero__coord--tl mono" aria-hidden="true">x:0.000 y:0.000</span>
+  <span class="hero__coord hero__coord--tr mono" aria-hidden="true">{site.coords}</span>
+  <span class="hero__coord hero__coord--bl mono" aria-hidden="true">node/01 — root</span>
+
+  <div class="hero__content wrap">
+    <p class="kicker reveal">Portfolio — {site.role}</p>
+
+    <h1 class="hero__name reveal">{site.name}</h1>
+
+    <p class="hero__role reveal">
+      <span class="mono hero__bracket">&lt;</span>
+      <span class="mono hero__typed" id="heroTyped">{roles[0]}</span><span class="hero__caret" aria-hidden="true"></span>
+      <span class="mono hero__bracket">/&gt;</span>
+    </p>
+
+    <p class="hero__desc reveal">
+      Ingénieur systèmes &amp; réseaux en alternance chez <strong>Koesio</strong>,
+      spécialisé en infrastructure, sécurisation des SI et cybersécurité.
+    </p>
+
+    <div class="hero__cta reveal">
+      <a href="#contact" class="btn btn--primary">
+        <span class="mono">$</span> me_contacter
+      </a>
+      <a href="#about" class="btn btn--ghost">explorer ↓</a>
+    </div>
+
+    <div class="hero__socials reveal">
+      <a href={site.linkedin} target="_blank" rel="noopener" class="hero__social mono">LinkedIn</a>
+      <span class="hero__sep" aria-hidden="true">·</span>
+      <a href={site.github} target="_blank" rel="noopener" class="hero__social mono">GitHub</a>
+      <span class="hero__sep" aria-hidden="true">·</span>
+      <a href={`mailto:${site.email}`} class="hero__social mono">Email</a>
+    </div>
+  </div>
+
+  <a href="#about" class="hero__scroll mono" aria-label="Défiler vers le contenu">
+    <span>scroll</span>
+    <span class="hero__scroll-line" aria-hidden="true"></span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero__graph {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    padding-block: var(--nav-h);
+    max-width: 880px;
+  }
+
+  .hero__name {
+    font-size: clamp(2.8rem, 9vw, 6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+    margin: 18px 0 14px;
+  }
+
+  .hero__role {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: clamp(1rem, 2.6vw, 1.5rem);
+    color: var(--ink-dim);
+    margin-bottom: 26px;
+  }
+
+  .hero__bracket { color: var(--accent); opacity: 0.55; }
+  .hero__typed { color: var(--accent-bright); }
+
+  .hero__caret {
+    width: 9px;
+    height: 1.1em;
+    background: var(--accent);
+    margin-left: 2px;
+    animation: blink 1.1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .hero__desc {
+    max-width: 540px;
+    color: var(--ink-dim);
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin-bottom: 34px;
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .hero__socials {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.8rem;
+  }
+
+  .hero__social {
+    color: var(--ink-dim);
+    transition: color 0.3s var(--ease);
+    position: relative;
+  }
+
+  .hero__social:hover { color: var(--accent-bright); }
+  .hero__sep { color: var(--ink-faint); }
+
+  /* Corner coordinate annotations */
+  .hero__coord {
+    position: absolute;
+    z-index: 1;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    opacity: 0.7;
+  }
+
+  .hero__coord--tl { top: calc(var(--nav-h) + 18px); left: var(--gutter); }
+  .hero__coord--tr { top: calc(var(--nav-h) + 18px); right: var(--gutter); }
+  .hero__coord--bl { bottom: 24px; left: var(--gutter); }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 24px;
+    right: var(--gutter);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.64rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .hero__scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent-line), transparent);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero__scroll-line::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: var(--accent);
+    animation: trace 2s var(--ease) infinite;
+  }
+
+  @keyframes trace {
+    0% { top: -50%; }
+    100% { top: 100%; }
+  }
+
+  @media (max-width: 640px) {
+    .hero__coord--tr, .hero__scroll { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__caret, .hero__scroll-line::after { animation: none; }
+  }
+</style>
+
+<script>
+  import { roles } from '../data/content';
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- Rotating role descriptor ----------
+  const typed = document.getElementById('heroTyped');
+  if (typed && !prefersReduced) {
+    let wordIndex = 0;
+    let charIndex = roles[0].length;
+    let deleting = false;
+
+    const tick = () => {
+      const word = roles[wordIndex];
+      charIndex += deleting ? -1 : 1;
+      typed.textContent = word.slice(0, charIndex);
+
+      let delay = deleting ? 36 : 70;
+      if (!deleting && charIndex === word.length) {
+        delay = 1900;
+        deleting = true;
+      } else if (deleting && charIndex === 0) {
+        deleting = false;
+        wordIndex = (wordIndex + 1) % roles.length;
+        delay = 320;
+      }
+      setTimeout(tick, delay);
+    };
+    setTimeout(tick, 2000);
+  }
+
+  // ---------- Network graph ----------
+  const canvas = document.getElementById('heroGraph') as HTMLCanvasElement | null;
+  if (canvas) {
+    const ctx = canvas.getContext('2d')!;
+    let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let raf = 0;
+    let running = false;
+    const mouse = { x: -9999, y: -9999 };
+
+    interface Node { x: number; y: number; vx: number; vy: number; r: number; hub: boolean; }
+    let nodes: Node[] = [];
+
+    const resize = () => {
+      w = canvas.offsetWidth;
+      h = canvas.offsetHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      build();
+    };
+
+    const build = () => {
+      const density = Math.min(Math.round((w * h) / 26000), 46);
+      nodes = Array.from({ length: density }, () => {
+        const hub = Math.random() < 0.16;
+        return {
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22,
+          r: hub ? 2.6 : 1.3,
+          hub,
+        };
+      });
+    };
+
+    const MAX = 150;
+
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+
+      // edges
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < MAX) {
+            const o = (1 - dist / MAX) * 0.18;
+            ctx.strokeStyle = `rgba(94, 168, 255, ${o})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // nodes
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+
+        // gentle cursor attraction
+        const dx = mouse.x - n.x, dy = mouse.y - n.y;
+        const d = Math.hypot(dx, dy);
+        if (d < 140) {
+          n.x += (dx / d) * (1 - d / 140) * 0.4;
+          n.y += (dy / d) * (1 - d / 140) * 0.4;
+        }
+
+        if (n.x < 0 || n.x > w) n.vx *= -1;
+        if (n.y < 0 || n.y > h) n.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = n.hub ? 'rgba(140, 194, 255, 0.95)' : 'rgba(94, 168, 255, 0.5)';
+        ctx.fill();
+
+        if (n.hub) {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r + 4, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(94, 168, 255, 0.25)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+
+      raf = requestAnimationFrame(draw);
+    };
+
+    const start = () => { if (!running) { running = true; draw(); } };
+    const stop = () => { running = false; cancelAnimationFrame(raf); };
+
+    const renderStatic = () => { draw(); cancelAnimationFrame(raf); };
+
+    resize();
+    let rt: number;
+    window.addEventListener('resize', () => {
+      clearTimeout(rt);
+      rt = window.setTimeout(resize, 200);
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+    });
+    canvas.addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; });
+
+    if (prefersReduced) {
+      renderStatic();
+    } else {
+      start();
+      const section = document.getElementById('hero');
+      if (section && 'IntersectionObserver' in window) {
+        new IntersectionObserver((entries) => {
+          entries.forEach((e) => (e.isIntersecting ? start() : stop()));
+        }, { threshold: 0 }).observe(section);
+      }
+      document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+    }
+  }
+</script>

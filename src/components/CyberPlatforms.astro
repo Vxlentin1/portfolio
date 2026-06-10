@@ -1,0 +1,145 @@
+---
+import SectionHead from './SectionHead.astro';
+import thm from '../../data/tryhackme.json';
+import rootme from '../../data/rootme.json';
+import rootmeLogo from '../../public/assets/logos/rootme.svg?raw';
+
+const nf = new Intl.NumberFormat('fr-FR');
+
+const platforms = [
+  {
+    brand: 'TryHackMe',
+    accent: '#9aef00',
+    username: thm.username,
+    url: thm.profileUrl,
+    avatar: thm.avatar || null,
+    logoSvg: null,
+    stats: [
+      thm.rankPercentile ? { value: `Top ${thm.rankPercentile}%`, label: 'Classement mondial' } : null,
+      thm.points != null ? { value: nf.format(thm.points), label: 'Points' } : null,
+    ].filter(Boolean),
+  },
+  {
+    brand: 'Root Me',
+    accent: '#f59e0b',
+    username: rootme.username,
+    url: rootme.profileUrl,
+    avatar: null,
+    logoSvg: rootmeLogo,
+    stats: [
+      rootme.rank != null ? { value: nf.format(rootme.rank), label: 'Classement' } : null,
+      rootme.score != null ? { value: nf.format(rootme.score), label: 'Score' } : null,
+    ].filter(Boolean),
+  },
+];
+---
+
+<section class="section" id="cybersec">
+  <div class="wrap">
+    <SectionHead n="06" label="Cybersécurité" title="Plateformes d'entraînement" />
+
+    <p class="cyber__intro reveal mono">// profils actifs sur les plateformes d'autoformation offensive</p>
+
+    <div class="cyber">
+      {platforms.map((p) => (
+        <article class="panel cyber__card reveal" style={`--p-accent:${p.accent}`}>
+          <header class="cyber__head">
+            <div class="cyber__avatar">
+              {p.avatar && <img src={p.avatar} alt={`Avatar ${p.brand}`} width="52" height="52" loading="lazy" />}
+              {p.logoSvg && <span class="cyber__logo" aria-label={p.brand}><Fragment set:html={p.logoSvg} /></span>}
+            </div>
+            <div>
+              <span class="cyber__brand mono">{p.brand}</span>
+              <a href={p.url} target="_blank" rel="noopener" class="cyber__user">@{p.username}</a>
+            </div>
+          </header>
+
+          <div class="cyber__stats">
+            {p.stats.map((s: any) => (
+              <div class="cyber__stat">
+                <span class="cyber__val mono">{s.value}</span>
+                <span class="cyber__lbl">{s.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <a href={p.url} target="_blank" rel="noopener" class="btn btn--ghost cyber__link">
+            voir le profil ↗
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cyber__intro { color: var(--ink-faint); font-size: 0.8rem; margin-bottom: 26px; }
+
+  .cyber {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .cyber__card {
+    padding: 30px 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 22px;
+  }
+
+  .cyber__head { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+  .cyber__avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid color-mix(in srgb, var(--p-accent) 40%, transparent);
+    background: color-mix(in srgb, var(--p-accent) 10%, transparent);
+    flex-shrink: 0;
+  }
+
+  .cyber__avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .cyber__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--p-accent);
+  }
+  .cyber__logo :global(svg) { width: 26px; height: 26px; }
+
+  .cyber__brand {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--p-accent);
+    margin-bottom: 2px;
+  }
+
+  .cyber__user {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    transition: color 0.3s var(--ease);
+  }
+  .cyber__user:hover { color: var(--p-accent); }
+
+  .cyber__stats { display: flex; justify-content: center; gap: 36px; }
+  .cyber__stat { display: flex; flex-direction: column; gap: 2px; }
+  .cyber__val { font-size: 1.3rem; font-weight: 600; color: var(--p-accent); }
+  .cyber__lbl { font-size: 0.7rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .cyber__link { align-self: center; margin-top: auto; }
+
+  @media (max-width: 720px) {
+    .cyber { grid-template-columns: 1fr; }
+  }
+</style>

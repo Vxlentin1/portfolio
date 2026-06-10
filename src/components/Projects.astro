@@ -1,0 +1,91 @@
+---
+import SectionHead from './SectionHead.astro';
+import { projects, site } from '../data/content';
+---
+
+<section class="section" id="projects">
+  <div class="wrap">
+    <SectionHead n="07" label="Projets" title="Dépôts & réalisations" />
+
+    <div class="projects">
+      {projects.map((p, i) => (
+        <article class={`panel project reveal${p.featured ? ' project--featured' : ''}`}>
+          <div class="project__index mono">{String(i + 1).padStart(2, '0')}</div>
+          <div class="project__body">
+            <div class="project__meta mono">
+              <span class="project__date">{p.date}</span>
+              <span class="project__ctx">{p.context}</span>
+            </div>
+            <h3 class="project__name mono">{p.name}</h3>
+            <p class="project__desc">{p.desc}</p>
+            <div class="project__tags">
+              {p.tags.map((t) => <span class="tag">{t}</span>)}
+            </div>
+            <a href={p.href} target="_blank" rel="noopener" class="project__link mono">
+              github.com{new URL(p.href).pathname} ↗
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="projects__cta reveal">
+      <a href={site.github} target="_blank" rel="noopener" class="btn btn--ghost">
+        <span class="mono">$</span> git clone — tous les dépôts ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects { display: grid; gap: 14px; }
+
+  .project {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 22px;
+    padding: 26px;
+  }
+
+  .project--featured {
+    border-color: var(--accent-line);
+    background: var(--accent-faint);
+  }
+
+  .project__index {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--ink-faint);
+    line-height: 1;
+  }
+  .project--featured .project__index { color: var(--accent); }
+
+  .project__meta {
+    display: flex;
+    gap: 14px;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+  }
+  .project__ctx { color: var(--accent); opacity: 0.8; }
+
+  .project__name { font-size: 1.4rem; font-weight: 600; margin-bottom: 10px; }
+  .project__desc { color: var(--ink-dim); font-size: 0.94rem; line-height: 1.7; margin-bottom: 14px; max-width: 60ch; }
+  .project__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+
+  .project__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: var(--accent);
+    transition: color 0.3s var(--ease);
+  }
+  .project__link:hover { color: var(--accent-bright); }
+
+  .projects__cta { margin-top: 26px; text-align: center; }
+
+  @media (max-width: 560px) {
+    .project { grid-template-columns: 1fr; gap: 12px; }
+  }
+</style>
