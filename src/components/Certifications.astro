@@ -9,7 +9,7 @@ const monogram = (s: string) => s.charAt(0).toUpperCase();
   <div class="wrap">
     <SectionHead n="05" label="Certifications" title="Certifications obtenues" />
 
-    <div class="certs">
+    <div class="certs" data-stagger>
       {certifications.map((c, i) => (
         <article class="panel cert reveal">
           <div class="cert__top">

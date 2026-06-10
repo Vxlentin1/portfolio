@@ -7,7 +7,7 @@ import { experiences } from '../data/content';
   <div class="wrap">
     <SectionHead n="02" label="Expériences" title="Parcours professionnel" />
 
-    <div class="timeline">
+    <div class="timeline" data-stagger>
       {experiences.map((exp, i) => (
         <article class={`tl reveal${exp.minor ? ' tl--minor' : ''}`}>
           <div class="tl__node" aria-hidden="true"></div>

@@ -42,30 +42,19 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : As
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Set .js before paint so reveal elements hide without flashing -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
   </head>
   <body>
     <a href="#about" class="skip-link mono">Aller au contenu</a>
     <slot />
 
     <script>
-      // Scroll-reveal — respects reduced motion via the CSS fallback.
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!prefersReduced && 'IntersectionObserver' in window) {
-        const obs = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                obs.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
-        );
-        document.querySelectorAll('.reveal').forEach((el) => obs.observe(el));
-      } else {
-        document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-visible'));
-      }
+      import { initAnimations } from '../scripts/anim';
+      initAnimations();
     </script>
   </body>
 </html>

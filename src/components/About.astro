@@ -12,9 +12,9 @@ import { about } from '../data/content';
         {about.paragraphs.map((p) => <p set:html={p} />)}
       </div>
 
-      <div class="about__stats reveal">
+      <div class="about__stats" data-stagger>
         {about.stats.map((s) => (
-          <div class="panel stat">
+          <div class="panel stat reveal">
             <span class="stat__value mono" data-count={s.value} data-suffix={s.suffix}>0{s.suffix}</span>
             <span class="stat__label">{s.label}</span>
           </div>

@@ -21,12 +21,12 @@ const endpoints = [
         </p>
       </div>
 
-      <div class="contact__endpoints reveal">
+      <div class="contact__endpoints" data-stagger>
         {endpoints.map((e) => {
           const Tag = e.href ? 'a' : 'div';
           return (
             <Tag
-              class="panel endpoint"
+              class="panel endpoint reveal"
               {...(e.href ? { href: e.href, target: e.href.startsWith('http') ? '_blank' : undefined, rel: 'noopener' } : {})}
             >
               <span class="endpoint__label mono">{e.label}</span>

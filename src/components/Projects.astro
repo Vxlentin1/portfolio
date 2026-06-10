@@ -7,7 +7,7 @@ import { projects, site } from '../data/content';
   <div class="wrap">
     <SectionHead n="07" label="Projets" title="Dépôts & réalisations" />
 
-    <div class="projects">
+    <div class="projects" data-stagger>
       {projects.map((p, i) => (
         <article class={`panel project reveal${p.featured ? ' project--featured' : ''}`}>
           <div class="project__index mono">{String(i + 1).padStart(2, '0')}</div>

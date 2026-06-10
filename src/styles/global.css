@@ -274,7 +274,7 @@ strong {
     border: 1px solid var(--line);
     border-radius: var(--r);
     background: rgba(126, 162, 211, 0.03);
-    transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+    transition: color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease), background 0.3s var(--ease);
 }
 
 .tag::before {
@@ -284,12 +284,17 @@ strong {
     background: var(--accent);
     opacity: 0.6;
     transform: rotate(45deg);
+    transition: opacity 0.3s var(--ease);
 }
 
 .tag:hover {
     color: var(--ink);
     border-color: var(--accent-line);
+    background: var(--accent-faint);
+    transform: translateY(-1px);
 }
+
+.tag:hover::before { opacity: 1; }
 
 /* Buttons */
 .btn {
@@ -326,18 +331,34 @@ strong {
     transform: translateY(-1px);
 }
 
-/* ---------- Reveal on scroll ---------- */
-.reveal {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-    will-change: opacity, transform;
+/* Tactile press feedback on click */
+.btn:active { transform: scale(0.95); transition-duration: 0.07s; }
+
+/* Full click animation (JS-triggered so it always plays, even when the
+   button is an anchor that scrolls the page away) */
+@keyframes btn-press {
+    0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(94, 168, 255, 0.45); }
+    30%  { transform: scale(0.94); }
+    60%  { transform: scale(1.015); }
+    100% { transform: scale(1);    box-shadow: 0 0 0 12px rgba(94, 168, 255, 0); }
 }
 
-.reveal.is-visible {
-    opacity: 1;
-    transform: none;
-}
+.btn.is-pressed { animation: btn-press 0.45s var(--ease); }
+
+/* ---------- Reveal on scroll (driven by GSAP) ----------
+   Elements start hidden only when JS is active, so the page is still
+   fully visible if scripts fail (no-JS / crawler). GSAP animates them in. */
+html.js .reveal { opacity: 0; will-change: opacity, transform; }
+html.js .section-head .measure { transform: scaleX(0); transform-origin: left center; }
+
+/* ---------- Lenis smooth scroll ---------- */
+html.lenis,
+html.lenis body { height: auto; }
+
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
 
 /* ---------- Accessibility ---------- */
 .skip-link {
@@ -392,4 +413,7 @@ button:focus-visible {
         opacity: 1 !important;
         transform: none !important;
     }
+
+    .section-head .measure { transform: scaleX(1) !important; }
+    [data-stagger] > .reveal { transition-delay: 0s !important; }
 }
