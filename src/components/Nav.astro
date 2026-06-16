@@ -26,7 +26,7 @@ import { nav, site } from '../data/content';
     </nav>
 
     <button class="nav__toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
-      <span></span><span></span>
+      <span></span><span></span><span></span>
     </button>
   </div>
 </header>
@@ -124,11 +124,31 @@ import { nav, site } from '../data/content';
     height: 1.5px;
     margin-inline: auto;
     background: var(--ink);
-    transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+    transition: transform 0.35s var(--ease), opacity 0.25s var(--ease);
   }
 
-  .nav__toggle.is-open span:first-child { transform: translateY(3.25px) rotate(45deg); }
-  .nav__toggle.is-open span:last-child { transform: translateY(-3.25px) rotate(-45deg); }
+  /* 3-bar → X : outer bars rotate to cross, middle fades out */
+  .nav__toggle.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav__toggle.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav__toggle.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* Backdrop overlay — injected via JS, lives at z-index 999 (below nav at 1000) */
+  :global(#navBackdrop) {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(9, 13, 20, 0.65);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s var(--ease);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  :global(#navBackdrop.is-open) {
+    opacity: 1;
+    pointer-events: auto;
+  }
 
   @media (max-width: 900px) {
     .nav__toggle { display: flex; }
@@ -146,6 +166,7 @@ import { nav, site } from '../data/content';
       border-left: 1px solid var(--line);
       transform: translateX(100%);
       transition: transform 0.4s var(--ease);
+      z-index: 1000;
     }
 
     .nav__links.is-open { transform: translateX(0); }
@@ -160,6 +181,12 @@ import { nav, site } from '../data/content';
   const toggle = document.getElementById('navToggle');
   const links = document.getElementById('navLinks');
 
+  // Backdrop — injected into body so it sits at z-index 999, below nav (1000)
+  const backdrop = document.createElement('div');
+  backdrop.id = 'navBackdrop';
+  backdrop.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(backdrop);
+
   // Scrolled state
   const onScroll = () => nav?.classList.toggle('is-scrolled', window.scrollY > 24);
   onScroll();
@@ -169,17 +196,23 @@ import { nav, site } from '../data/content';
   const closeMenu = () => {
     toggle?.classList.remove('is-open');
     links?.classList.remove('is-open');
+    backdrop.classList.remove('is-open');
     toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.setAttribute('aria-label', 'Ouvrir le menu');
     document.body.style.overflow = '';
   };
 
   toggle?.addEventListener('click', () => {
     const open = links?.classList.toggle('is-open');
     toggle.classList.toggle('is-open', open);
+    backdrop.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', String(!!open));
+    toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
     document.body.style.overflow = open ? 'hidden' : '';
   });
 
+  backdrop.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
   links?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
 
   // Active section highlighting
