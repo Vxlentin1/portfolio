@@ -9,9 +9,11 @@ import Lenis from 'lenis';
 export function initAnimations() {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Button click feedback works regardless of motion preference (it's a
-  // discrete press, not continuous motion) — but skip the keyframe if reduced.
-  if (!reduce) initButtonPress();
+  initClickSpark(); // direct user action — always active
+  if (!reduce) {
+    initButtonPress();
+    initSpotlight();
+  }
 
   if (reduce) {
     // Reveal everything immediately, no smooth scroll.
@@ -108,6 +110,67 @@ export function initAnimations() {
   if ('fonts' in document) {
     (document as any).fonts.ready.then(() => ScrollTrigger.refresh());
   }
+}
+
+function initSpotlight() {
+  document.querySelectorAll<HTMLElement>('.panel').forEach((panel) => {
+    panel.addEventListener('mousemove', (e) => {
+      const { left, top } = panel.getBoundingClientRect();
+      const x = e.clientX - left;
+      const y = e.clientY - top;
+      panel.style.setProperty(
+        '--panel-glow',
+        `radial-gradient(280px at ${x}px ${y}px, rgba(94, 168, 255, 0.09), transparent 65%)`
+      );
+    });
+    panel.addEventListener('mouseleave', () => {
+      panel.style.removeProperty('--panel-glow');
+    });
+  });
+}
+
+function initClickSpark() {
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLElement>('.btn');
+    if (!btn) return;
+
+    const COUNT = 10;
+    const cx = e.clientX;
+    const cy = e.clientY;
+
+    for (let i = 0; i < COUNT; i++) {
+      const angle = (i / COUNT) * 2 * Math.PI + (Math.random() - 0.5) * 0.5;
+      const dist = 28 + Math.random() * 22;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist;
+      const size = 2 + Math.random() * 2.5;
+      const alpha = 0.6 + Math.random() * 0.4;
+
+      const el = document.createElement('span');
+      el.style.cssText = [
+        `position:fixed`,
+        `left:${cx}px`,
+        `top:${cy}px`,
+        `width:${size}px`,
+        `height:${size}px`,
+        `background:rgba(94,168,255,${alpha.toFixed(2)})`,
+        `pointer-events:none`,
+        `z-index:9999`,
+        `border-radius:1px`,
+        `transform:translate(-50%,-50%) rotate(45deg)`,
+        `will-change:transform,opacity`,
+      ].join(';');
+      document.body.appendChild(el);
+
+      requestAnimationFrame(() => {
+        el.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease-out';
+        el.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) rotate(45deg) scale(0.15)`;
+        el.style.opacity = '0';
+      });
+
+      setTimeout(() => el.remove(), 600);
+    }
+  });
 }
 
 function initButtonPress() {

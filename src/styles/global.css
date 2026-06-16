@@ -219,15 +219,16 @@ strong {
 /* Blueprint panel: thin border + registration ticks at the corners */
 .panel {
     position: relative;
-    background: var(--panel);
+    background-color: var(--panel);
+    background-image: var(--panel-glow, none); /* spotlight layer updated via JS */
     border: 1px solid var(--line);
     border-radius: var(--r);
-    transition: border-color 0.4s var(--ease), background 0.4s var(--ease), transform 0.4s var(--ease);
+    transition: border-color 0.4s var(--ease), background-color 0.4s var(--ease), transform 0.4s var(--ease);
 }
 
 .panel:hover {
     border-color: var(--accent-line);
-    background: var(--panel-hover);
+    background-color: var(--panel-hover);
 }
 
 /* Corner registration ticks — drawn with a layered conic/linear trick via pseudo els */
