@@ -19,11 +19,18 @@ jobs:
           node-version: '20'
 
       - name: Fetch and write TryHackMe stats
+        id: fetch
+        continue-on-error: true
         env:
           THM_USERNAME: vxlms3
         run: node .github/scripts/update-tryhackme.mjs
 
+      - name: Warn if fetch failed
+        if: steps.fetch.outcome == 'failure'
+        run: echo "::warning::TryHackMe fetch failed — existing data kept, will retry tomorrow."
+
       - name: Commit changes
+        if: steps.fetch.outcome == 'success'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

@@ -43,7 +43,7 @@
     --nav-h: 64px;
     --maxw: 1200px;
     --gutter: clamp(20px, 5vw, 64px);
-    --section-gap: clamp(80px, 12vh, 140px);
+    --section-gap: clamp(48px, 7vh, 88px);
 
     /* Sharp, technical corners */
     --r: 3px;

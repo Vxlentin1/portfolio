@@ -39,7 +39,7 @@ export const about = {
   paragraphs: [
     "Passionné d'informatique depuis mon plus jeune âge, j'ai développé un vif intérêt pour tout ce qui touche aux <strong>réseaux</strong>, à la <strong>sécurité</strong>, à l'<strong>IA</strong> et surtout à la <strong>cybersécurité</strong>.",
     "Actuellement en alternance chez <strong>Koesio</strong>, n°1 des services numériques pour les PME et collectivités, je prépare un <strong>Mastère Manager en Infrastructures et Cybersécurité des SI</strong> (Bac+5) au CESI.",
-    "Sportif dans l'âme (vélo, course à pied et trail) j'aime les défis et me fixer des objectifs pour les atteindre en développant de nouvelles compétences chaque jour.",
+    "Sportif dans l'âme (vélo, course à pied et ultra-trail) j'aime les défis et me fixer des objectifs pour les atteindre en développant de nouvelles compétences chaque jour.",
   ],
   stats: [
     { value: 3, suffix: '+', label: "Années d'expérience IT" },
